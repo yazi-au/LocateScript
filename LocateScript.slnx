@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="LocateScript.vcxproj" Id="527534f8-f773-401e-a80a-6ea7bfbe407d" />
+</Solution>
