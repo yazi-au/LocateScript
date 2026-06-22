@@ -29,11 +29,6 @@ namespace LocateScript {
             std::string& response,
             const std::string& systemPrompt = "");
 
-        bool ChatScreen(
-            const std::string& prompt,
-            std::string& response,
-            const std::string& systemPrompt = "");
-
         bool StreamChat(
             const std::string& prompt,
             const StreamCallback& onToken,
@@ -42,11 +37,6 @@ namespace LocateScript {
         bool StreamChatImage(
             const std::string& prompt,
             const std::string& imagePath,
-            const StreamCallback& onToken,
-            const std::string& systemPrompt = "");
-
-        bool StreamChatScreen(
-            const std::string& prompt,
             const StreamCallback& onToken,
             const std::string& systemPrompt = "");
 

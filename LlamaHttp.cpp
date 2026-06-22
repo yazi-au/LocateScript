@@ -519,10 +519,6 @@ namespace LocateScript {
             {"role", "user"},
             {"content", json::array({
                 json{
-                    {"type", "text"},
-                    {"text", prompt}
-                },
-                json{
                     {"type", "image_url"},
                     {"image_url", {
                         {"url", dataUri},
@@ -532,52 +528,9 @@ namespace LocateScript {
             })}
                                   });
 
-        return SendChatRequest(req, response, false, nullptr);
-    }
-
-    bool LLMClient::ChatScreen(
-        const std::string& prompt,
-        std::string& response,
-        const std::string& systemPrompt) {
-        std::vector<std::uint8_t> jpegBytes;
-        if (!CaptureScreenToJpeg(jpegBytes)) {
-            return false;
-        }
-
-        const std::string dataUri = MakeDataUriFromJpeg(jpegBytes);
-        if (dataUri.empty()) {
-            return false;
-        }
-
-        json req;
-        if (!m_model.empty()) {
-            req["model"] = m_model;
-        }
-
-        req["messages"] = json::array();
-
-        if (!systemPrompt.empty()) {
-            req["messages"].push_back({
-                {"role", "system"},
-                {"content", systemPrompt}
-                                      });
-        }
-
         req["messages"].push_back({
             {"role", "user"},
-            {"content", json::array({
-                json{
-                    {"type", "text"},
-                    {"text", prompt}
-                },
-                json{
-                    {"type", "image_url"},
-                    {"image_url", {
-                        {"url", dataUri},
-                        {"detail", "auto"}
-                    }}
-                }
-            })}
+            {"content", prompt}
                                   });
 
         return SendChatRequest(req, response, false, nullptr);
@@ -629,65 +582,17 @@ namespace LocateScript {
         req["stream"] = true;
         req["messages"] = json::array();
 
-                req["messages"].push_back({
-            {"role", "user"},
-            {"content", json::array({
-                json{
-                    {"type", "image_url"},
-                    {"image_url", {
-                        {"url", dataUri},
-                        {"detail", "auto"}
-                    }}
-                }
-            })}
-                                  });
-
-                req["messages"].push_back({
-                    {"role", "user"},
-                    {"content", prompt}
-                                          });
-
-        std::string dummy;
-        return SendChatRequest(req, dummy, true, &onToken);
-    }
-
-    bool LLMClient::StreamChatScreen(
-        const std::string& prompt,
-        const StreamCallback& onToken,
-        const std::string& systemPrompt) {
-        std::vector<std::uint8_t> jpegBytes;
-        if (!CaptureScreenToJpeg(jpegBytes)) {
-            return false;
-        }
-
-        const std::string dataUri = MakeDataUriFromJpeg(jpegBytes);
-        if (dataUri.empty()) {
-            return false;
-        }
-
-        json req;
-        if (!m_model.empty()) {
-            req["model"] = m_model;
-        }
-
-        req["stream"] = true;
-        req["messages"] = json::array();
-
         if (!systemPrompt.empty()) {
             req["messages"].push_back({
                 {"role", "system"},
                 {"content", systemPrompt}
-                                      });
+            });
         }
 
         req["messages"].push_back({
             {"role", "user"},
             {"content", json::array({
                 json{
-                    {"type", "text"},
-                    {"text", prompt}
-                },
-                json{
                     {"type", "image_url"},
                     {"image_url", {
                         {"url", dataUri},
@@ -695,7 +600,12 @@ namespace LocateScript {
                     }}
                 }
             })}
-                                  });
+        });
+
+        req["messages"].push_back({
+            {"role", "user"},
+            {"content", prompt}
+        });
 
         std::string dummy;
         return SendChatRequest(req, dummy, true, &onToken);

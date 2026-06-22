@@ -146,6 +146,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="InputSim.cpp" />
     <ClCompile Include="LlamaHttp.cpp" />
     <ClCompile Include="LocateAI.cpp" />
     <ClCompile Include="LocateScript.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="httplib.h" />
+    <ClInclude Include="InputSim.hpp" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="LlamaHttp.hpp" />
     <ClInclude Include="LocateAI.hpp" />
