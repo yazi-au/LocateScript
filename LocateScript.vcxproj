@@ -146,6 +146,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="InputSim.cpp" />
     <ClCompile Include="LlamaHttp.cpp" />
     <ClCompile Include="LocateAI.cpp" />
@@ -153,6 +154,8 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandManager.hpp" />
+    <ClInclude Include="glohot.h" />
     <ClInclude Include="httplib.h" />
     <ClInclude Include="InputSim.hpp" />
     <ClInclude Include="json.hpp" />

@@ -8,7 +8,7 @@
 namespace LocateScript {
 	class Vec2i {
 	public:
-		uint32_t x, y;
+		uint32_t x = 0, y = 0;
 
 		Vec2i(uint32_t x, uint32_t y) : x(x), y(y) {}
 	};
@@ -41,9 +41,14 @@ namespace LocateScript {
 		std::vector<AABBbox> boxes;
 		std::vector<Token> tokenBuffer;
 		std::vector<char> buffer;
+		Vec2i screenSize = {0, 0};
 		std::string lastName;
+
+		void resize(uint32_t& x, uint32_t& y);
 	public:
 		void add(std::string str);
 		std::vector<AABBbox>* getBoxes();
+		StreamBoxFactory(Vec2i screenSize) : screenSize(screenSize) {}
+		StreamBoxFactory();
 	};
 }
